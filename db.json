@@ -1,0 +1,34 @@
+[
+    {
+        "id": 0,
+        "attributes": {
+            "name": "Mega secret box"
+        },
+        "relationships": {}
+    },
+    {
+        "id": 1,
+        "attributes": {
+            "name": "Secret box"
+        },
+        "relationships": {
+            "inside": 0
+        }
+    },
+    {
+        "id": 2,
+        "attributes": {
+            "name": "My best"
+        },
+        "relationships": {}
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Small box"
+        },
+        "relationships": {
+            "inside": 2
+        }
+    }
+]
