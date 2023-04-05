@@ -1,10 +1,42 @@
 {
   "dependencies": {
     "express": "^4.18.2",
+    "readline-sync": "^1.4.10",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.17"
-  }
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "db.json"
+    ]
+  },
+  "scripts": {
+    "start": "ts-node cli.ts --ignore db.json"
+  },
+  "bin": {  
+    "box-master-cli": "node dist/cli.js"  
+  },
+  "name": "box-master-cli",
+  "version": "1.0.0",
+  "description": "CLI for box-master",
+  "main": "cli.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orl0pl/box-master.git"
+  },
+  "keywords": [
+    "box",
+    "manager",
+    "typescript",
+    "box-master"
+  ],
+  "author": "orl0pl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/orl0pl/box-master/issues"
+  },
+  "homepage": "https://github.com/orl0pl/box-master#readme"
 }

@@ -1,34 +1,26 @@
-[
+{
+  "boxes": [
     {
-        "id": 0,
-        "attributes": {
-            "name": "Mega secret box"
-        },
-        "relationships": {}
+      "id": 0,
+      "attributes": {
+        "name": "Good frist box"
+      },
+      "relationships": {}
     },
     {
-        "id": 1,
-        "attributes": {
-            "name": "Secret box"
-        },
-        "relationships": {
-            "inside": 0
-        }
+      "id": 3,
+      "attributes": {
+        "name": "Why it's so bugged?"
+      },
+      "relationships": {}
     },
     {
-        "id": 2,
-        "attributes": {
-            "name": "My best"
-        },
-        "relationships": {}
-    },
-    {
-        "id": 3,
-        "attributes": {
-            "name": "Small box"
-        },
-        "relationships": {
-            "inside": 2
-        }
+      "id": 4,
+      "attributes": {
+        "name": "New"
+      },
+      "relationships": {}
     }
-]
+  ],
+  "globalIdCounter": 4
+}

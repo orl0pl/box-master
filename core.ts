@@ -44,13 +44,15 @@ const getBoxParent = (boxes: Box[], box: Box): Box|null => {
  * Creates a new box with a given name and parent box.
  *
  * @param {Box[]} boxes - An array of boxes to add the new box to.
+ * @param {number} globalIdCounter - The highest ID ever.
  * @param {object} attributes - The name of the new box.
  * @param {Box} [parentBox] - The box that will contain the new box, if any.
  * @returns {Box} The new box that was created.
  */
-function createBox(boxes: Box[], attributes = {}, parentBox?: Box): Box {
+function createBox(boxes: Box[], globalIdCounter: number, attributes: object = {}, parentBox?: Box): Box {
+    const highestIndex = globalIdCounter;
     const newBox: Box = {
-        id: boxes.length,
+        id: highestIndex + 1,
         attributes: attributes,
         relationships: {},
     };
@@ -87,6 +89,15 @@ function deleteBox(boxes: Box[], box: Box): void {
     contents.forEach((content) => deleteBox(boxes, content));
     const index = boxes.indexOf(box);
     boxes.splice(index, 1);
+}
+/**
+ * Filters a list of boxes and returns only those that are mach attributes.
+ * @param {Box[]} boxes - An array of boxes to filter.
+ * @param {Function} callback - A function that takes a box and returns a boolean.
+ * @returns {Box[]} An array of boxes that pass the filter.
+ */
+function filterBoxes(boxes: Box[], callback: (box: Box) => boolean): Box[] {
+    return boxes.filter(callback);
 }
 
 // Some tests
@@ -143,5 +154,6 @@ export {
     moveBox,
     deleteBox,
     Box,
+    filterBoxes
 
 }
