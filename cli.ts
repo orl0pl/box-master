@@ -13,6 +13,16 @@
 █▄▄ █▀█ ▀▄▀   █▀▄▀█ ▄▀█ █▀ ▀█▀ █▀▀ █▀█
 █▄█ █▄█ █░█   █░▀░█ █▀█ ▄█ ░█░ ██▄ █▀▄ 
 */
+const helpMessage =`
+Available commands:
+\x1b[35mlist\x1b[0m - list all boxes
+\x1b[35mcreate\x1b[0m - prompt for creating a new box
+\x1b[35mmove\x1b[0m - prompt for moving a box
+\x1b[35mdelete\x1b[0m - prompt for deleting a box
+\x1b[35mquit\x1b[0m - exit the CLI
+\x1b[35mhelp\x1b[0m - print this message
+\x1b[35mtree\x1b[0m - print the tree of boxes
+    `
 const version = "0.1.0";
 import readline from "readline";
 import fs from "fs";
@@ -41,15 +51,18 @@ console.log("\x1b[36m%s\x1b[0m", `
 █▄▄ █▀█ ▀▄▀   █▀▄▀█ ▄▀█ █▀ ▀█▀ █▀▀ █▀█
 █▄█ █▄█ █░█   █░▀░█ █▀█ ▄█ ░█░ ██▄ █▀▄`);
 console.log(`CLI Version: \x1b[33m${version}\x1b[0m`);
-console.log('\n Available commands: \nlist, tree, create, move, delete, quit ')
-// log text in gray color
-// Define the command prompt
+console.log('\n Available commands: \n\x1b[35mlist\x1b[0m, \x1b[35mtree\x1b[0m, \x1b[35mcreate\x1b[0m, \x1b[35mmove\x1b[0m, \x1b[35mdelete\x1b[0m, \x1b[35mquit\x1b[0m ')
 
 const prompt = () => {
     rl.question("\n \x1b[90m>\x1b[0m ", (answer) => {
         switch (answer) {
+            case 'help':
+                console.log(helpMessage);
+                prompt();
+                break;
             case "list":
                 listBoxes(boxes);
+                prompt();
                 break;
             case "create":
                 createBoxPrompt();
@@ -66,9 +79,10 @@ const prompt = () => {
                 break;
             case "tree":
                 treeBoxes(null);
+                
                 break;
             default:
-                console.log("Invalid command.");
+                console.log("\x1b[31mInvalid command.\x1b[0m Type \x1b[35mhelp\x1b[0m for a list of commands.");
                 prompt();
         }
     });
