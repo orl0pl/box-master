@@ -20,7 +20,34 @@
         "name": "3"
       },
       "relationships": {}
+    },
+    {
+      "id": 3,
+      "attributes": {
+        "name": "nested"
+      },
+      "relationships": {
+        "inside": 1
+      }
+    },
+    {
+      "id": 4,
+      "attributes": {
+        "name": "nested in 0"
+      },
+      "relationships": {
+        "inside": 0
+      }
+    },
+    {
+      "id": 5,
+      "attributes": {
+        "name": "Second nested"
+      },
+      "relationships": {
+        "inside": 0
+      }
     }
   ],
-  "globalIdCounter": 2
+  "globalIdCounter": 5
 }

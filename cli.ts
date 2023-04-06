@@ -17,21 +17,18 @@ const version = "0.1.0";
 import readline from "readline";
 import fs from "fs";
 import { findBox, getBoxContents, getBoxParent, createBox, moveBox, deleteBox, Box } from "./core";
-var boxesData: Box[] = JSON.parse(fs.readFileSync("db.json").toString()).boxes;
+import listBoxes  from "./cli/listBoxes";
+var boxes: Box[] = JSON.parse(fs.readFileSync("db.json").toString()).boxes;
 var globalIdCounter = JSON.parse(fs.readFileSync("db.json").toString()).globalIdCounter;
 if (globalIdCounter == 0) {
     globalIdCounter = -1;
 }
-console.log(globalIdCounter)
-var configCLI = JSON.parse(fs.readFileSync("db.json").toString()).configCLI;
 function saveBoxData() {
     fs.writeFileSync("db.json", JSON.stringify({
         boxes: boxes,
         globalIdCounter: globalIdCounter
     }, null, 2));
 }
-// Convert the attributes of each box to an any type
-const boxes = boxesData;
 
 // Create a readline interface for user input
 const rl = readline.createInterface({
@@ -44,7 +41,7 @@ console.log("\x1b[36m%s\x1b[0m", `
 █▄▄ █▀█ ▀▄▀   █▀▄▀█ ▄▀█ █▀ ▀█▀ █▀▀ █▀█
 █▄█ █▄█ █░█   █░▀░█ █▀█ ▄█ ░█░ ██▄ █▀▄`);
 console.log(`CLI Version: \x1b[33m${version}\x1b[0m`);
-console.log('\n Enter a command \nlist, tree, create, move, delete, quit ')
+console.log('\n Available commands: \nlist, tree, create, move, delete, quit ')
 // log text in gray color
 // Define the command prompt
 
@@ -52,11 +49,10 @@ const prompt = () => {
     rl.question("\n \x1b[90m>\x1b[0m ", (answer) => {
         switch (answer) {
             case "list":
-                listBoxes();
+                listBoxes(boxes);
                 break;
             case "create":
                 createBoxPrompt();
-
                 break;
             case "move":
                 moveBoxPrompt();
@@ -79,13 +75,13 @@ const prompt = () => {
 };
 
 // Define the function to list all boxes
-const listBoxes = () => {
+/*const listBoxes = () => {
     console.log("All boxes:");
     boxes.forEach((box) => {
         console.log(`- ${box.attributes.name|| box.attributes} (${(box.id)})`);
     });
     prompt();
-};
+};*/
 
 // Define the function to prompt for creating a new box
 const createBoxPrompt = () => {
@@ -208,9 +204,11 @@ const treeBoxes = (id: number | null = null, depth: number = 0) => {
         }
     
     };
-    const parentBoxes = id === null ? boxes.filter((box) => !box.relationships?.inside) : boxes.filter((box) => box.id === id);
+    const parentBoxes = id === null ? boxes.filter((box) => box.relationships.inside == undefined) : boxes.filter((box) => box.id === id);
+    //console.log(parentBoxes)
     for (const box of parentBoxes) {
         console.log(`${"  ".repeat(depth)}\x1b[90m|--\x1b[0m ${box.attributes.name} (${box.id})`);
+        //console.log(box.id);
         const childBoxes = boxes.filter((child) => child.relationships?.inside === box.id);
         for (const child of childBoxes) {
             treeBoxes2(child.id, depth + 1);
