@@ -17,7 +17,7 @@ Note that the CLI is currently broken and may not work correctly.
 
 To start the CLI, run the following command:
 ```shell
-nodemon cli.ts
+nodemon cli/cli.ts
 ```
 
 Plans for Express API

@@ -26,8 +26,8 @@ Available commands:
 const version = "0.1.0";
 import readline from "readline";
 import fs from "fs";
-import { findBox, getBoxContents, getBoxParent, createBox, moveBox, deleteBox, Box } from "./core";
-import listBoxes  from "./cli/listBoxes";
+import { findBox, getBoxContents, getBoxParent, createBox, moveBox, deleteBox, Box } from "../core";
+import listBoxes  from "./listBoxes";
 var boxes: Box[] = JSON.parse(fs.readFileSync("db.json").toString()).boxes;
 var globalIdCounter = JSON.parse(fs.readFileSync("db.json").toString()).globalIdCounter;
 if (globalIdCounter == 0) {
@@ -112,7 +112,7 @@ const createBoxPrompt = () => {
                 const parentId = parseInt(parentStr);
                 const parentBox = findBox(boxes, parentId);
                 if (!parentBox) {
-                    console.log(`No box with ID ${parentId} found.`);
+                    console.log(`\x1b[31mNo box with ID ${parentId} found.\x1b[0m`);
                     prompt();
                     return;
                 }
@@ -133,7 +133,7 @@ const moveBoxPrompt = () => {
         const id = parseInt(idStr);
         const box = findBox(boxes, id);
         if (!box) {
-            console.log(`No box with ID ${id} found.`);
+            console.log(`\x1b[31mNo box with ID ${id} found.\x1b[0m`);
             prompt();
             return;
         }
@@ -146,7 +146,7 @@ const moveBoxPrompt = () => {
                 const parentId = parseInt(parentStr);
                 const parentBox = findBox(boxes, parentId);
                 if (!parentBox) {
-                    console.log(`No box with ID ${parentId} found.`);
+                    console.log(`\x1b[31mNo box with ID ${parentId} found.\x1b[0m`);
                     prompt();
                     return;
                 }
@@ -166,7 +166,7 @@ const deleteBoxPrompt = () => {
         const id = parseInt(idStr);
         const box = findBox(boxes, id);
         if (!box) {
-            console.log(`No box with ID ${id} found.`);
+            console.log(`\x1b[31mNo box with ID ${id} found.\x1b[0m`);
             prompt();
             return;
         }
