@@ -18,7 +18,12 @@ import readline from "readline";
 import fs from "fs";
 import { findBox, getBoxContents, getBoxParent, createBox, moveBox, deleteBox, Box } from "./core";
 var boxesData: Box[] = JSON.parse(fs.readFileSync("db.json").toString()).boxes;
-var globalIdCounter = JSON.parse(fs.readFileSync("db.json").toString()).globalIdCounter - 1;
+var globalIdCounter = JSON.parse(fs.readFileSync("db.json").toString()).globalIdCounter;
+if (globalIdCounter == 0) {
+    globalIdCounter = -1;
+}
+console.log(globalIdCounter)
+var configCLI = JSON.parse(fs.readFileSync("db.json").toString()).configCLI;
 function saveBoxData() {
     fs.writeFileSync("db.json", JSON.stringify({
         boxes: boxes,
@@ -77,7 +82,7 @@ const prompt = () => {
 const listBoxes = () => {
     console.log("All boxes:");
     boxes.forEach((box) => {
-        console.log(`- ${box.attributes.name || box.attributes} (${(box.id)})`);
+        console.log(`- ${box.attributes.name|| box.attributes} (${(box.id)})`);
     });
     prompt();
 };
@@ -89,7 +94,7 @@ const createBoxPrompt = () => {
         rl.question("Enter the ID of the parent box, or leave blank to make it a root box: ", (parentStr) => {
             if (parentStr === "") {
                 createBox(boxes,globalIdCounter, attributes);
-                globalIdCounter++;
+                globalIdCounter=globalIdCounter+1;
                 console.log(`Created box with attributes "${attributes}".`);
                 saveBoxData();
                 prompt();
@@ -102,7 +107,7 @@ const createBoxPrompt = () => {
                     return;
                 }
                 createBox(boxes,globalIdCounter, attributes, parentBox);
-                globalIdCounter++;
+                globalIdCounter=globalIdCounter+1;
                 console.log(`Created box with attributes "${attributes}".`);
                 saveBoxData();
                 prompt();
@@ -191,7 +196,7 @@ function stringToNum(str: string): number {
  * @param {number|null} id The ID of the parent box to start from, or `null` to print all top-level boxes.
  * @param {number} depth The depth of the current box in the tree structure.
  */
-const treeBoxes = (id: number | null = null, depth = 0) => {
+const treeBoxes = (id: number | null = null, depth: number = 0) => {
     const treeBoxes2 = (id: number | null = null, depth = 0) => {
         const parentBoxes = id === null ? boxes.filter((box) => !box.relationships?.inside) : boxes.filter((box) => box.id === id);
         for (const box of parentBoxes) {

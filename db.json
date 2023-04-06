@@ -3,24 +3,24 @@
     {
       "id": 0,
       "attributes": {
-        "name": "Good frist box"
+        "name": "1"
       },
       "relationships": {}
     },
     {
-      "id": 3,
+      "id": 1,
       "attributes": {
-        "name": "Why it's so bugged?"
+        "name": "2"
       },
       "relationships": {}
     },
     {
-      "id": 4,
+      "id": 2,
       "attributes": {
-        "name": "New"
+        "name": "3"
       },
       "relationships": {}
     }
   ],
-  "globalIdCounter": 4
+  "globalIdCounter": 2
 }
