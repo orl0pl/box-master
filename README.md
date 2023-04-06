@@ -6,7 +6,7 @@ This repository contains a Box Master System built with TypeScript. The system i
 Core
 ----
 
-The `core.ts` file contains the core functionality of the Box Master. It defines the `Box` interface and provides functions for manipulating boxes in the system, including adding new boxes, deleting existing ones, and printing a tree structure of all boxes.
+The `core.ts` file contains the core functionality of the Box Master. It defines the `Box` interface and provides functions for manipulating boxes in the system.
 
 CLI
 ---
@@ -14,6 +14,11 @@ CLI
 The `cli.ts` file contains a simple CLI interface for interacting with the Box Master. It imports the core functionality from `core.ts` and allows you to add new boxes, delete existing ones, and print a tree structure of all boxes.
 
 Note that the CLI is currently broken and may not work correctly.
+
+To start the CLI, run the following command:
+```shell
+nodemon cli.ts
+```
 
 Plans for Express API
 ---------------------
