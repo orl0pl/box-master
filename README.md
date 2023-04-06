@@ -13,12 +13,15 @@ CLI
 
 The `cli.ts` file contains a simple CLI interface for interacting with the Box Master. It imports the core functionality from `core.ts` and allows you to add new boxes, delete existing ones, and print a tree structure of all boxes.
 
-Note that the CLI is currently broken and may not work correctly.
-
 To start the CLI, run the following command:
 ```shell
 nodemon cli/cli.ts
 ```
+To get all comands run the following command:
+```
+help
+```
+Documentation for the CLI is not needed.
 
 Plans for Express API
 ---------------------
