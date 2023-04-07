@@ -17,15 +17,17 @@
     ]
   },
   "scripts": {
-    "start": "ts-node cli.ts --ignore db.json"
+    "cli": "ts-node cli/cli.ts --ignore db.json",
+    "api-na": "ts-node api/api.ts --ignore db.json",
+    "cleanup": "node ./etc/cleanup.js"
   },
   "bin": {
     "box-master-cli": "node dist/cli.js"
   },
   "name": "box-master-cli",
   "version": "1.0.0",
-  "description": "CLI for box-master",
-  "main": "cli.ts",
+  "description": "Different things for box-master",
+  "main": "etc/cleanup.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/orl0pl/box-master.git"
