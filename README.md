@@ -1,3 +1,5 @@
+> One day, when I was tidying up my room, I came up with an idea for a box management system with various integration options. After many days, I present to you:
+
 Box Master
 =====================
 
