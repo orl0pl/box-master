@@ -24,4 +24,4 @@ To start Express API run:
 ```
 npm run api-na
 ```
-You can find documentation in wiki.
+You can find documentation in [wiki](https://github.com/orl0pl/box-master/wiki).
