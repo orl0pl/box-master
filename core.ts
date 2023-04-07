@@ -7,7 +7,22 @@ interface Box {
         inside?: number;
     };
 }
+/**
+ * Updates the attributes of a box.
+ * @param {Box[]} boxes - An array of boxes to search.
+ * @param {Box} box - The box to update.
+ * @param {object} newAttributes - The new attributes of the box.
+ */
+const editBox = (boxes: Box[],box: Box, newAttributes: Record<string, any>) => {
+    const boxIndex = boxes.findIndex((b) => b == box);
+    if (boxIndex === -1) {
+      return;
+    }
+  
+    boxes[boxIndex].attributes = { ...boxes[boxIndex].attributes, ...newAttributes };
 
+  };
+  
 /**
  * Finds a box with a given ID.
  *
@@ -154,6 +169,7 @@ export {
     moveBox,
     deleteBox,
     Box,
-    filterBoxes
+    filterBoxes,
+    editBox
 
 }

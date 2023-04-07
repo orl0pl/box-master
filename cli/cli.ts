@@ -1,24 +1,11 @@
 // Box Master CLI
-/* 
-  ____                                   _            
- |  _ \                                 | |           
- | |_) | _____  __   _ __ ___   __ _ ___| |_ ___ _ __ 
- |  _ < / _ \ \/ /  | '_ ` _ \ / _` / __| __/ _ \ '__|
- | |_) | (_) >  <   | | | | | | (_| \__ \ ||  __/ |   
- |____/ \___/_/\_\  |_| |_| |_|\__,_|___/\__\___|_|   
-                                                                                                            
-*/
-/* 
-
-█▄▄ █▀█ ▀▄▀   █▀▄▀█ ▄▀█ █▀ ▀█▀ █▀▀ █▀█
-█▄█ █▄█ █░█   █░▀░█ █▀█ ▄█ ░█░ ██▄ █▀▄ 
-*/
 const helpMessage =`
 Available commands:
 \x1b[35mlist\x1b[0m - list all boxes
 \x1b[35mcreate\x1b[0m - prompt for creating a new box
 \x1b[35mmove\x1b[0m - prompt for moving a box
 \x1b[35mdelete\x1b[0m - prompt for deleting a box
+\x1b[35medit\x1b[0m - prompt for editing a box
 \x1b[35mquit\x1b[0m - exit the CLI
 \x1b[35mhelp\x1b[0m - print this message
 \x1b[35mtree\x1b[0m - print the tree of boxes
@@ -26,7 +13,7 @@ Available commands:
 const version = "0.1.0";
 import readline from "readline";
 import fs from "fs";
-import { findBox, getBoxContents, getBoxParent, createBox, moveBox, deleteBox, Box } from "../core";
+import { findBox, getBoxContents, getBoxParent, createBox, moveBox, deleteBox, Box, editBox } from "../core";
 import listBoxes  from "./listBoxes";
 var boxes: Box[] = JSON.parse(fs.readFileSync("db.json").toString()).boxes;
 var globalIdCounter = JSON.parse(fs.readFileSync("db.json").toString()).globalIdCounter;
@@ -51,7 +38,8 @@ console.log("\x1b[36m%s\x1b[0m", `
 █▄▄ █▀█ ▀▄▀   █▀▄▀█ ▄▀█ █▀ ▀█▀ █▀▀ █▀█
 █▄█ █▄█ █░█   █░▀░█ █▀█ ▄█ ░█░ ██▄ █▀▄`);
 console.log(`CLI Version: \x1b[33m${version}\x1b[0m`);
-console.log('\n Available commands: \n\x1b[35mlist\x1b[0m, \x1b[35mtree\x1b[0m, \x1b[35mcreate\x1b[0m, \x1b[35mmove\x1b[0m, \x1b[35mdelete\x1b[0m, \x1b[35mquit\x1b[0m ')
+// Theese wreid characters are used to color the prompt
+console.log('\n Available commands: \n\x1b[35mlist\x1b[0m, \x1b[35mtree\x1b[0m, \x1b[35mcreate\x1b[0m, \x1b[35mmove\x1b[0m, \x1b[35mdelete\x1b[0m, \x1b[35medit\x1b[0m, \x1b[35mquit\x1b[0m ')
 
 const prompt = () => {
     rl.question("\n \x1b[90m>\x1b[0m ", (answer) => {
@@ -72,6 +60,9 @@ const prompt = () => {
                 break;
             case "delete":
                 deleteBoxPrompt();
+                break;
+            case "edit":
+                editBoxPrompt();
                 break;
             case "quit":
                 console.log("Goodbye!");
@@ -126,7 +117,31 @@ const createBoxPrompt = () => {
 
     });
 };
-
+const editBoxPrompt = () => {
+    rl.question("Enter the ID of the box you want to edit: ", (idString) => {
+      const id = parseInt(idString);
+      if (isNaN(id)) {
+        console.log("Invalid box ID.");
+        prompt();
+        return;
+      }
+      const box = findBox(boxes, id);
+      if(box){
+        rl.question("Enter the new attributes in JSON format: ", (attributesString) => {
+            try {
+              const newAttributes = JSON.parse(attributesString);
+              editBox(boxes ,box, newAttributes);
+              saveBoxData();
+              prompt();
+            } catch (error) {
+              console.log("Invalid attributes.");
+              prompt();
+            }
+          });
+      }
+    });
+  };
+  
 // Define the function to prompt for moving a box
 const moveBoxPrompt = () => {
     rl.question("Enter the ID of the box to move: ", (idStr) => {

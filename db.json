@@ -3,7 +3,7 @@
     {
       "id": 0,
       "attributes": {
-        "name": "1"
+        "name": "nullpackung"
       },
       "relationships": {}
     },
@@ -50,9 +50,27 @@
     },
     {
       "id": 6,
-      "attributes": {},
+      "attributes": {
+        "name": "New Name"
+      },
       "relationships": {}
+    },
+    {
+      "id": 9,
+      "attributes": {
+        "name": "hihiha"
+      },
+      "relationships": {}
+    },
+    {
+      "id": 10,
+      "attributes": {
+        "name": "minipackung"
+      },
+      "relationships": {
+        "inside": 0
+      }
     }
   ],
-  "globalIdCounter": 6
+  "globalIdCounter": 10
 }
